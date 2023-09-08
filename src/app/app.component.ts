@@ -58,20 +58,19 @@ export class AppComponent {
 
   obtenerTotal(movimientos:Cuenta[] ){
  
+    let debitoTotal = 0;
+    let creditoTotal = 0;
+    
     for(let i = 0 ; i < movimientos.length ; i++){
 
-      let debitoTotal = 0;
-      let creditoTotal = 0;
       if(movimientos[i].tipo == 'debito'){
         debitoTotal+=movimientos[i].saldo;
       }
 
       if(movimientos[i].tipo == 'credito'){
-        creditoTotal=movimientos[i].saldo;
-      }
-
-      this.total= creditoTotal - debitoTotal;
-      
+        creditoTotal+=movimientos[i].saldo;
+      }      
     }
+    this.total= creditoTotal - debitoTotal;
   }
 }
