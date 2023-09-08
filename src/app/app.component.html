@@ -344,46 +344,87 @@
     <span>Internacional</span>
   </div>
 
-  <div class="container col-md-6" >
-    <div class="form-group">
-      <label for="">Codigo:</label>
-      <input [(ngModel)]="clienteEdit.codigo" name="name" type="text" class="form-control" >
-    </div>
-    
-    <div>
-      <button (click)="obtenerCliente()" class="btn btn-info">Clientes</button>
-      
-    </div>
-
-  </div>
-
-  <div class="card-body" *ngIf="promo" >
-    <form action="">
-        <div class="form-group">
-            <label for="">Nombre:</label>
-            <input [(ngModel)]="cliente.nombre" name="name" type="text" class="form-control" >
-            
-        </div>
-        <div class="form-group">
-             <label for="">Apellido:</label>
-             <input [(ngModel)]="cliente.apellido" name="apellido" type="text"  class="form-control">
-         </div>
-         <div class="form-group">
-             <label for="">Edad:</label>
-             <input [(ngModel)]="cliente.edad" name="edad" type="text"  class="form-control">
-         </div>
-         <div class="form-group">
-          <label for="">Cuenta:</label>
-          <input [(ngModel)]="cliente.cuenta" name="cuenta" type="text"  class="form-control">
-        </div>
-        <div class="form-group">
-          <label for="">Edad:</label>
-          <input [(ngModel)]="cliente.edad" name="cantidad" type="text"  class="form-control">
-        </div>
-
+  <div >
+    <table class="table table-hover">
+        <tr>
+          <th>
+            <div class="form-group">
+              <label for="">Codigo:</label>
+              <input [(ngModel)]="clienteEdit.codigo" name="name" type="text" class="form-control" maxlength="9" >
+            </div>
+          </th>
          
-    </form>
- </div>
+        </tr>
+        <tr>
+          <th>
+            <div>
+              <button (click)="obtenerCliente()" class="btn btn-info">Cliente</button>
+              
+            </div>
+          </th>
+         
+        </tr>
+    
+
+  <div class="izq" *ngIf="promo" >
+      <table class="table table-hover">
+        <tr>
+          <th>
+            <div class="form-group">
+              <label for="">Nombre:</label>
+              <input [(ngModel)]="cliente.nombre" name="name" type="text" class="form-control" >
+          </div>
+          <div class="form-group">
+               <label for="">Apellido:</label>
+               <input [(ngModel)]="cliente.apellido" name="apellido" type="text"  class="form-control">
+           </div>
+           <div class="form-group">
+               <label for="">Edad:</label>
+               <input [(ngModel)]="cliente.edad" name="edad" type="text"  class="form-control">
+           </div>
+           <div class="form-group">
+            <label for="">Cuenta:</label>
+            <input [(ngModel)]="cliente.cuenta" name="cuenta" type="text"  class="form-control">
+          </div>
+          <div class="form-group" *ngIf="cliente.empleado">
+            <label for="">Cargo:</label>
+            <input [(ngModel)]="cliente.cargo" name="cantidad" type="text"  class="form-control">
+          </div>
+          </th>
+          
+        </tr>
+      </table>
+    </div>
+        <div class="def" *ngIf="promo" >
+          <div class="card-header">
+              <h3>
+                  Movimientos
+              </h3>
+          </div>
+          <div >
+              <table class="table table-hover">
+                  <thead>
+                      <tr>
+                        <th>TIPO</th>
+                        <th>DESCRIPCION</th>
+                        <th>SALDO</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr *ngFor = "let movimiento of movimientos" class="text-center">
+                          <td>{{movimiento.tipo}}</td>
+                          <td>{{movimiento.descripcion}}</td>
+                          <td>{{movimiento.saldo}}</td>
+                      </tr>
+                      
+                  </tbody>
+  
+              </table>
+  
+          </div>
+      </div>
+
+ 
  
     
 

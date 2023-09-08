@@ -77,4 +77,10 @@ export class ServiceService {
     return this.http.get<Cliente>(Url);
   }
 
+  getMovimiento(idCliente:number){
+    console.log("idCliente-- "+idCliente)
+    let Url='http://localhost:8080/cuenta/listarMovimientos?cliente='+idCliente;
+    return this.http.get<Cuenta[]>(Url);
+  }
+
 }

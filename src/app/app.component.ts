@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Cliente } from './Modelo/Cliente';
 import { ServiceService } from './Service/service.service';
+import { Cuenta } from './Modelo/Cuenta';
 
 @Component({
   selector: 'app-root',
@@ -11,9 +12,11 @@ import { ServiceService } from './Service/service.service';
 export class AppComponent {
   title = 'cliente';
 
-  clienteEdit:Cliente=new Cliente("codigo","nombre",  "apellido", 1, "cuenta", false, new Date() );
-  cliente:Cliente=new Cliente("codigo","nombre",  "apellido", 1, "cuenta", false, new Date() );
+  clienteEdit:Cliente=new Cliente(1,"codigo","nombre",  "apellido", 1, "cuenta", false, "", new Date() );
+  cliente:Cliente=new Cliente(1,"codigo","nombre",  "apellido", 1, "cuenta", false, "",new Date() );
   promo: boolean  | undefined ; 
+  movimientos:Cuenta[] | undefined;
+  total:number|undefined;
 
   constructor(private router:Router, private service:ServiceService,){
     
@@ -28,9 +31,47 @@ export class AppComponent {
       this.service.getClienteId(codigo+"").subscribe(data =>{
         console.log("ingreso");
         console.log("data " +data);
-        this.cliente=data;
+        if(data!= null){
+          this.cliente=data;
+        this.obtenerMovimientos(this.cliente.id);
         this.promo = true;
+        }else{
+          alert("No se encontro usuario");
+        }
+        
       })
+    }
+  }
+
+  obtenerMovimientos(idcliente:number ){
+
+    this.service.getMovimiento(idcliente).subscribe(data =>{
+      console.log("ingreso");
+      console.log("data " +data);
+      this.movimientos=data;
+      if(data != null){
+
+        this.obtenerTotal(data);
+      }
+    })
+  }
+
+  obtenerTotal(movimientos:Cuenta[] ){
+ 
+    for(let i = 0 ; i < movimientos.length ; i++){
+
+      let debitoTotal = 0;
+      let creditoTotal = 0;
+      if(movimientos[i].tipo == 'debito'){
+        debitoTotal+=movimientos[i].saldo;
+      }
+
+      if(movimientos[i].tipo == 'credito'){
+        creditoTotal=movimientos[i].saldo;
+      }
+
+      this.total= creditoTotal - debitoTotal;
+      
     }
   }
 }
